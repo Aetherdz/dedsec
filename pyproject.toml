@@ -11,7 +11,7 @@ requires-python = ">=3.8"
 license = {file = "LICENSE"}
 authors = [
   {name = "Sohaim Muqtada"},
-  {name = "Aether-DZ", email = "maintained-by-aether"},
+  {name = "Aether-DZ", email = "aether@users.noreply.github.com"},
 ]
 keywords = ["security", "reconnaissance", "web-security", "pentesting", "cli"]
 classifiers = [
