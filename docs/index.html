@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEDSEC — Recon that keeps receipts.</title>
+  <meta name="description" content="DEDSEC is an evidence-driven web reconnaissance framework: 26 modules for authorized security testing, from attack-surface discovery to PoC-or-nothing reporting. Process-isolated, hard deadlines, scoped target HTTP.">
+  <meta name="theme-color" content="#201d1d">
+  <link rel="canonical" href="https://aether-dz.github.io/dedsec/">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="DEDSEC">
+  <meta property="og:title" content="DEDSEC — Recon that keeps receipts.">
+  <meta property="og:description" content="26 modules. Process isolation. Hard deadlines. Soft-404-aware discovery. Recon where observation stays observation and only PoC becomes a finding.">
+  <meta property="og:url" content="https://aether-dz.github.io/dedsec/">
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="DEDSEC — Evidence-driven recon">
+  <meta name="twitter:description" content="26 modules for authorized security testing, from surface discovery to PoC-or-nothing reporting.">
+
+  <link rel="stylesheet" href="assets/styles.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "DEDSEC",
+    "url": "https://aether-dz.github.io/dedsec/",
+    "applicationCategory": "SecurityApplication",
+    "operatingSystem": "Any",
+    "description": "Modular evidence-driven web reconnaissance framework for authorized security testing: 26 modules, process-isolated execution with hard deadlines, scoped target HTTP, and conservative observation-to-finding correlation.",
+    "license": "https://mit-license.org/"
+  }
+  </script>
+</head>
+<body>
+  <a class="skip-link" href="#top">Skip to content</a>
+
+  <header class="site-header" id="top">
+    <nav class="header-inner" aria-label="Primary">
+      <a class="brand" href="#top">dedsec<span class="brand-caret">_</span></a>
+
+      <div class="nav-links" id="nav-links">
+        <a href="#pipeline">pipeline</a>
+        <a href="#modules">modules</a>
+        <a href="#usage">usage</a>
+        <a href="#install">install</a>
+        <a class="btn" href="https://github.com/Aether-DZ/dedsec" target="_blank" rel="noopener">View on GitHub</a>
+      </div>
+
+      <button class="nav-toggle" id="nav-toggle" aria-controls="nav-links" aria-expanded="false">
+        <span class="sr-only">Menu</span>
+        <span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span><span class="nav-toggle-bar"></span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1 class="hero-title">Recon that<br>keeps receipts.</h1>
+      <p class="hero-sub">26 modules turn a single target into a scoped, evidence-backed picture of its attack surface — every claim traceable, every dead-end marked inconclusive. PoC or nothing.</p>
+
+      <div class="hero-actions">
+        <a class="btn" href="https://github.com/Aether-DZ/dedsec" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="btn btn-ghost" href="https://github.com/Aether-DZ/dedsec/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">Read the docs</a>
+      </div>
+
+      <pre class="term" aria-label="DEDSEC scan output in a terminal">
+<span class="term-d">┌─ dedsec ────────────────────────────────────────────┐</span>
+<span class="term-d">│</span> <span class="term-c">$</span> dedsec https://example.com --modules content,waf   <span class="term-d">│</span>
+<span class="term-d">│</span>                                                        <span class="term-d">│</span>
+<span class="term-d">│</span>   <span class="term-c">→</span> preflight   <span class="term-m">tcp 443</span> <span class="term-ok">reachable ✓</span>                  <span class="term-d">│</span>
+<span class="term-d">│</span>   <span class="term-c">→</span> content     <span class="term-m">73 paths probed</span> <span class="term-warn">82 soft-404 filtered</span> <span class="term-d">│</span>
+<span class="term-d">│</span>   <span class="term-c">→</span> waf         <span class="term-m">cloudflare</span> <span class="term-ok">conf (80%)</span>              <span class="term-d">│</span>
+<span class="term-d">│</span>   <span class="term-c">→</span> decision    <span class="term-m">observation, not conclusion</span>           <span class="term-d">│</span>
+<span class="term-d">│</span>   <span class="term-c">→</span> report      <span class="term-m">schema 2.1</span> · evidence sha-256        <span class="term-d">│</span>
+<span class="term-d">│</span>   <span class="term-c">→</span> scope       <span class="term-m">23 requests used</span> <span class="term-ok">budget ok</span>          <span class="term-d">│</span>
+<span class="term-d">└──────────────────────────────────────────────────────┘</span></pre>
+    </section>
+
+    <!-- PIPELINE -->
+    <section class="section" id="pipeline">
+      <h2>Nothing runs without a receipt.</h2>
+      <p class="section-sub">DEDSEC separates target availability from security conclusions. Every module is process-isolated behind a hard deadline, every HTTP request is scope-checked and budget-bounded.</p>
+
+      <ol class="stage-list" aria-label="Pipeline stages">
+        <li><span class="stage-num">01</span><span class="stage-name">Preflight</span><span class="stage-desc">bounded TCP reachability, no dead waits</span></li>
+        <li><span class="stage-num">02</span><span class="stage-name">Isolate</span><span class="stage-desc">each module in its own killable process</span></li>
+        <li><span class="stage-num">03</span><span class="stage-name">Probe</span><span class="stage-desc">scoped, verified TLS, bounded retries</span></li>
+        <li><span class="stage-num">04</span><span class="stage-name">Observe</span><span class="stage-desc">signature-validated, soft-404 aware</span></li>
+        <li><span class="stage-num">05</span><span class="stage-name">Correlate</span><span class="stage-desc">observation → candidate → verified finding</span></li>
+        <li><span class="stage-num">06</span><span class="stage-name">Report</span><span class="stage-desc">schema 2.1, evidence IDs, redaction</span></li>
+      </ol>
+    </section>
+
+    <!-- MODULES -->
+    <section class="section" id="modules">
+      <h2>The arsenal.</h2>
+      <p class="section-sub">Twenty-six scoped modules, grouped by what they answer. Each runs bounded and reports its uncertain outcome honestly as inconclusive.</p>
+
+      <div class="skill-group">
+        <h3 class="group-label">// discovery</h3>
+        <ul class="skill-list">
+          <li><span class="skill-name">subdomains</span><span class="skill-desc">multi-source enumeration, unresolved-candidate preservation</span></li>
+          <li><span class="skill-name">content</span><span class="skill-desc">high-value path probing with soft-404 filtering</span></li>
+          <li><span class="skill-name">dirlisting</span><span class="skill-desc">signature-validated autoindex detection</span></li>
+          <li><span class="skill-name">js</span><span class="skill-desc">in-scope JS assets, typed routes, API candidates, secret-shape detection</span></li>
+          <li><span class="skill-name">api_schema</span><span class="skill-desc">public OpenAPI/Swagger discovery and endpoint mapping</span></li>
+          <li><span class="skill-name">vhost</span><span class="skill-desc">in-scope Host-header response-difference candidates</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="group-label">// posture</h3>
+        <ul class="skill-list">
+          <li><span class="skill-name">headers</span><span class="skill-desc">weighted header-coverage and disclosure posture</span></li>
+          <li><span class="skill-name">csp</span><span class="skill-desc">CSP directive hardening observations</span></li>
+          <li><span class="skill-name">cookies</span><span class="skill-desc">cookie security attributes and scope</span></li>
+          <li><span class="skill-name">cors</span><span class="skill-desc">cross-origin configuration candidates, no impact overclaiming</span></li>
+          <li><span class="skill-name">clickjacking</span><span class="skill-desc">framing restrictions and frameability observations</span></li>
+          <li><span class="skill-name">exposures</span><span class="skill-desc">signature-validated sensitive exposure checks</span></li>
+        </ul>
+      </div>
+
+      <div class="skill-group">
+        <h3 class="group-label">// endpoint & network</h3>
+        <ul class="skill-list">
+          <li><span class="skill-name">ports</span><span class="skill-desc">bounded TCP service discovery, explicit network-state classification</span></li>
+          <li><span class="skill-name">ssl</span><span class="skill-desc">verified certificate and protocol analysis</span></li>
+          <li><span class="skill-name">dns</span><span class="skill-desc">records, auth posture, DNSSEC, labeled AXFR check</span></li>
+          <li><span class="skill-name">email</span><span class="skill-desc">DNS-only SPF, DMARC, DKIM-selector, MX posture</span></li>
+          <li><span class="skill-name">http_methods</span><span class="skill-desc">method declarations and bounded TRACE validation</span></li>
+          <li><span class="skill-name">redirect</span><span class="skill-desc">controlled open-redirect analysis, no external-follow</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- USAGE -->
+    <section class="section" id="usage">
+      <h2>One command, a full scope-honest run.</h2>
+      <p class="section-sub">Drop it into any authorized scope. `--timeout` is the whole logical request deadline; `--module-timeout` and `--global-timeout` bound the outer scan. Nothing hangs.</p>
+
+      <div class="code-block">
+        <div class="code-head"><span class="code-file">full scan</span><button class="copy" type="button" data-copy="dedsec https://example.com&#10;cd dedsec&#10;pip install -e ." aria-label="Copy full scan command">copy</button></div>
+<pre>dedsec https://example.com</pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-head"><span class="code-file">scoped + bounded</span><button class="copy" type="button" data-copy="dedsec https://example.com -m tech,dns,ssl,headers --concurrency 4 --module-timeout 120 --global-timeout 600 --max-requests 1000" aria-label="Copy scoped scan command">copy</button></div>
+<pre>dedsec https://example.com -m tech,dns,ssl,headers \
+  --concurrency 4 --module-timeout 120 \
+  --global-timeout 600 --max-requests 1000</pre>
+      </div>
+
+      <p class="install-cta">
+        <a class="btn" href="https://github.com/Aether-DZ/dedsec" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="text-link" href="https://github.com/Aether-DZ/dedsec/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">full usage guide →</a>
+      </p>
+    </section>
+
+    <!-- INSTALL -->
+    <section class="section" id="install">
+      <h2>Get started in 60 seconds.</h2>
+      <p class="section-sub">Runs on Python 3.8–3.13. Install into a venv and point it at a target you own or are authorized to test.</p>
+
+      <div class="code-block">
+        <div class="code-head"><span class="code-file">install</span><button class="copy" type="button" data-copy="git clone https://github.com/Aether-DZ/dedsec&#10;cd dedsec&#10;python3 -m venv .venv && source .venv/bin/activate&#10;pip install -e." aria-label="Copy install command">copy</button></div>
+<pre>git clone https://github.com/Aether-DZ/dedsec
+cd dedsec
+python3 -m venv .venv && source .venv/bin/activate
+pip install -e .</pre>
+      </div>
+
+      <p class="install-cta">
+        <a class="btn" href="https://github.com/Aether-DZ/dedsec" target="_blank" rel="noopener">View on GitHub</a>
+        <a class="text-link" href="https://github.com/Aether-DZ/dedsec/blob/main/SECURITY.md" target="_blank" rel="noopener">disclosure policy →</a>
+      </p>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <span class="footer-logo">dedsec<span class="brand-caret">_</span></span>
+        <p class="footer-tag">evidence-driven web reconnaissance for authorized testing.</p>
+      </div>
+      <div class="footer-col">
+        <span class="footer-label">docs</span>
+        <a href="https://github.com/Aether-DZ/dedsec/blob/main/docs/INSTALL.md" target="_blank" rel="noopener">install</a>
+        <a href="https://github.com/Aether-DZ/dedsec/blob/main/docs/ARCHITECTURE_SUMMARY.md" target="_blank" rel="noopener">architecture</a>
+        <a href="https://github.com/Aether-DZ/dedsec/blob/main/docs/module-authoring.md" target="_blank" rel="noopener">module authoring</a>
+      </div>
+      <div class="footer-col">
+        <span class="footer-label">repo</span>
+        <a href="https://github.com/Aether-DZ/dedsec" target="_blank" rel="noopener">github</a>
+        <a href="https://github.com/Aether-DZ/dedsec/blob/main/SECURITY.md" target="_blank" rel="noopener">security</a>
+        <a href="https://github.com/Aether-DZ/dedsec/blob/main/LICENSE" target="_blank" rel="noopener">license</a>
+      </div>
+      <p class="footer-note">MIT · for authorized testing only</p>
+    </div>
+  </footer>
+
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
